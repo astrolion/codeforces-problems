@@ -15,6 +15,12 @@ int main() {
             vis[ g[i][j] ] = 1;
         }
 
+    if(rows == 1) {
+        puts("TAK");
+        puts("1");
+        return 0;
+    }
+
     if( count( vis.begin(), vis.end(), 1 ) == 1 ) {
         puts("NIE");
         return 0;
@@ -28,10 +34,7 @@ int main() {
 
     puts("TAK");
 
-    if(rows == 1) {
-        puts("1");
-        return 0;
-    }
+
 
     if(!val) {
         bool flag = false;
