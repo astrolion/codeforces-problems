@@ -8,35 +8,17 @@ int main() {
 
     vector< vector<int> > g( rows, vector<int>(cols) );
 
-    vector< int> vis(1050, 0);
-    for(int i = 0; i < rows; i++)
-        for(int j = 0; j < cols; j++) {
-            scanf("%d", &g[i][j]);
-            vis[ g[i][j] ] = 1;
-        }
-
-    if(rows == 1) {
-        puts("TAK");
-        puts("1");
-        return 0;
-    }
-
-    if( count( vis.begin(), vis.end(), 1 ) == 1 ) {
-        puts("NIE");
-        return 0;
-    }
-
-    vector< int > ans(rows, 0);
     int val = 0;
     for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
+            scanf("%d", &g[i][j]);
+        }
         val ^= g[i][0];
     }
 
-    puts("TAK");
+    vector< int > ans(rows, 0);
 
-
-
-    if(!val) {
+    if( !val ) {
         bool flag = false;
         for(int i = 0; i < rows; i++) {
             for(int j = 1; j < cols; j++) {
@@ -48,8 +30,13 @@ int main() {
             }
             if(flag) break;
         }
+        if(flag == false) {
+            puts("NIE");
+            return 0;
+        }
     }
 
+    puts("TAK");
     for(auto it : ans) printf("%d ", it + 1);
 
 
