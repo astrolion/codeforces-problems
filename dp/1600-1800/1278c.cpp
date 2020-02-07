@@ -14,39 +14,42 @@ int main() {
 
         for(auto &it : v) scanf("%d", &it);
 
-        int cur = n + n;
-        for(auto it : v) cur +=  it == 1  ? +1 : -1;
+        int d = 0;
+        for(auto it : v) {
+            if( it == 1 )d++;
+            else d--;
+        }
 
-        int base = n + n;
-
-        map<int, int > mp;
-        int test = n + n;
-        mp[test] = 0;
+        map< int, int > mp;
+        int cur = 0;
+        mp[cur] = 0;
 
         for(int i = n; i < n + n; i++) {
-            test += v[i] == 1 ? +1 : -1;
-            if( mp.find(test)  == mp.end() ) {
-                mp[test] = i - n + 1;
+            if(v[i] == 1) cur++;
+            else cur--;
+            if( !mp.count(cur) ) {
+                mp[cur] = i - n + 1;
             }
         }
 
-
-
-        test = n + n;
         int ans = n + n;
-        if( mp.find(cur - test + base) != mp.end() ) {
-            ans = min(ans, mp[cur - test] );
+        if( mp.count(d) ) {
+            ans = min(ans, mp[d] );
         }
 
-        cout << endl;
-        int cnt = 0;
+        int cnt = 1;
+        cur = 0;
+
         for(int i = n - 1; i >= 0; i--) {
-            test += v[i] == 1 ? +1 : -1;
-            cnt++;
-            cout << test << endl;
-            if( mp.find(cur - test+base) != mp.end() ) {
-                ans = min(ans, mp[cur - test] + cnt );
+
+            if( v[i] == 1 ) cur++;
+            else cur--;
+
+            if( mp.count( d - cur ) ) {
+                ans = min(ans, cnt + mp[ d - cur ] );
             }
+
+            cnt++;
         }
 
         printf("%d\n", ans);
